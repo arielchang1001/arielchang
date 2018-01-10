@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>台灣外來入侵種</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Passero+One" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Rancho&effect=3d-float|3d">
+    <link rel="stylesheet" type="text/css" href="asset">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/d3map.css">
+<!--    <link rel="stylesheet" type="text/css" href="js/scripts.js">-->
+
+    <style>
+        
+        div,
+        #div1 {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        div,
+        #div6 {
+            margin-bottom: 0px;
+            margin: 0px;
+        }
+
+        body,
+        .container-fluid {
+            margin: 0;
+            padding: 0;
+        }
+
+        .jumbotron {
+            margin-bottom: 0px;
+        }
+
+        .video {
+            min-width: 100vw;
+            min-height: 100%;
+            z-index: -1;
+            position: absolute;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+        }
+
+        #div7,
+        .body {
+            background-color: rgba(145, 173, 112, 1);
+            font-family: Helvetica, sans-serif;
+        }
+
+        /* The actual timeline (the vertical ruler) */
+
+        .timeline {
+            position: relative;
+            max-width: 100vw;
+            margin: 0 auto;
+        }
+
+        /* The actual timeline (the vertical ruler) */
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: rgba(97, 97, 56, 1);
+            top: 350px;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        /* Container around content */
+
+        .container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        /* The circles on the timeline */
+
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: rgba(177, 180, 121, 1);
+            border: 4px solid rgba(190, 194, 63, 1);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Place the container to the left */
+
+        .left {
+            left: -25%;
+        }
+
+        /* Place the container to the right */
+
+        .right {
+            left: 25%;
+        }
+
+        /* Add arrows to the left container (pointing right) */
+
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid rgba(91, 98, 46, 0.5);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent rgba(91, 98, 46, 0.5);
+        }
+
+        /* Add arrows to the right container (pointing left) */
+
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid rgba(91, 98, 46, 0.5);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent rgba(91, 98, 46, 0.5) transparent transparent;
+        }
+
+        /* Fix the circle for containers on the right side */
+
+        .right::after {
+            left: -16px;
+        }
+
+        /* The actual content */
+
+        .content {
+            padding: 20px 30px;
+            background-color: rgba(91, 98, 46, 0.5);
+            position: relative;
+            border-radius: 6px;
+        }
+
+        /* Media queries - Responsive timeline on screens less than 600px wide */
+
+        @media all and (max-width: 600px) {
+            /* Place the timelime to the left */
+            .timeline::after {
+                left: 31px;
+            }
+
+            /* Full-width containers */
+            .container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            /* Make sure that all arrows are pointing leftwards */
+            .container::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+
+            /* Make sure all circles are at the same spot */
+            .left::after,
+
+            .right::after {
+                left: 15px;
+            }
+
+            /* Make all right containers behave like the left ones */
+            .right {
+                left: 0%;
+            }
+        }
+        
+/*
+        #div8
+        .row {
+           position: relative;
+            max-width: 100vw;
+            margin: 0 auto;
+        }
+        
+*/
+    </style>
+
+</head>
+
+<body>
+
+    <div id="div1" class="container-fluid" style="position:fixed;height:40%;width:60vw;background-color:rgba(91,98,46,0.8);transform:translate(100vw);z-index:1;">
+        <h1 style="color: aliceblue">
+            <font face="微軟正黑體"><strong>生態殺手－台灣外來入侵種</strong></font>
+            <br>
+           
+        </h1>
+        <h3 style="color: aliceblue">
+            <font face="微軟正黑體">台灣氣候高溫多雨，地形樣貌多變，配合四季的變遷與季風的吹拂，使得叢爾小島也能孕育出豐富的生態系。然而，基於經濟效益、改良品種、賞玩價值、等各種私慾，政府或民間常試圖引進各式外來種，以滿足需求，卻也容易因為一個不經意的外來物種，影響了台灣的生態平衡。</font>
+        </h3>
+    </div>
+
+    <video id="video1" src="asset/QQ%E7%8F%8D%E5%A5%87%E5%AF%B5%E7%89%A9%E9%A4%A8%202014%E5%B9%B43%E6%9C%88%E5%B0%8F%E7%B6%A0%E6%B0%B4%E9%BE%8D.mp4" class="video"></video>
+    <div class="container-fluid" style="min-height: 800px; color:white;"></div>
+    <div id="div3" class="container-fluid" style="min-height: 0px; background-color: rgba(0, 0, 0, 0.8); color:white"></div>
+    <video id="video2" src="asset/Southern%20Brown%20Tree%20Frog%20(Litoria%20ewingii).mp4" class="video"></video>
+    <div class="container-fluid" style="min-height: 800px; color:white;"></div>
+    <div id="div5" class="container-fluid" style="min-height: 0px; background-color: rgba(0, 0, 0, 0.8); color:white"></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script>
+        
+        $(document).ready(function() {
+
+            var video1_pos = $('#video1').position().top;
+            var video2_pos = $('#video2').position().top;
+            var div3_pos = $('#div3').position().top;
+            var div5_pos = $('#div5').position().top; //Reserve the original height
+
+            $(window).scroll(function() {
+                var scroll = $(window).scrollTop();
+                var winh = $(window).height();
+
+                if (scroll >= video1_pos) {
+                    $('#video1').addClass('fixed');
+                } else {
+                    $('#video1').removeClass('fixed');
+                }
+                if (scroll >= video2_pos) {
+                    $('#video2').addClass('fixed');
+                } else {
+                    $('#video2').removeClass('fixed');
+                }
+
+
+                if (scroll > video1_pos - winh / 2 && scroll < div3_pos) {
+                    $('#video1')[0].play();
+                } else {
+                    $('#video1')[0].pause();
+                }
+
+                if (scroll > video2_pos - winh / 2 && scroll < div5_pos) {
+                    $('#video2')[0].play();
+                } else {
+                    $('#video2')[0].pause();
+                }
+
+                if (scroll >= div3_pos) {
+                    var a = 1;
+                    $("#div2").css({
+                        opacity: 0.8
+                    });
+                }
+
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                var doch = $(document).height() - $(window).height();;
+                var scrolled = $(window).scrollTop();
+                $("#div1").css('transform', "translate(" + (100 - scrolled / doch * 400) + "vw)");
+            });
+        });
+    </script>
+
+    <div id="div7" class="timeline">
+        <div class="container" style="min-height:250px; width:100vw;background-color:rgba(145, 173, 112, 1);">
+            <h2 align="left">
+                <br>
+                <br>
+                <font face="微軟正黑體">根據臺灣物種名錄資料庫的統計</font>
+            </h2>
+            <h2 align="left">
+                <font face="微軟正黑體">外來入侵種高達 </font>
+            </h2>
+            <h1 align="left" class="animated flipInX" style="animation-duration: 3s;animation-iteration-count: 1;color: brown">
+                <font face="微軟正黑體">213種</font>
+            </h1>
+        </div>
+        <div class="container" style="min-height:250px; width:100vw;background-color:rgba(145, 173, 112, 1);">
+            <br>
+            <h1>歷年重大外來種入侵事件</h1>
+        </div>
+        <div id="left1"class="container left">
+            <div >
+                <div class="content">
+                    <h2>1980年代 <span style="color: brown">福壽螺</span></h2>
+                    <p>福壽螺既無天敵，耐受力又強，繁殖力比台灣原生種的各種長臂蝦、螃蟹和圓田螺都強，入侵後迅速攻陷了台灣的田埂池塘。由於福壽螺適應力強，食性雜，幾乎水中綠色植物都吃，以致造成水稻、茭白筍等農作物受害，並且在非農業區形成生態環境上的問題。</p>
+                </div>
+            </div>
+        </div>
+        <div id="right1"class="container right">
+            <div >
+                <div class="content">
+                    <h2>1990年代 <span style="color: brown">小花蔓澤蘭</span></h2>
+                    <p>小花蔓澤蘭在入侵地區到處蔓延肆虐，許多植物都被它纏勒覆蓋而死，或因光合作用受阻，使樹勢衰弱「窒息」而死，直接競爭原生物種生存棲地，導致原生態系的生物多樣性受到侵害，嚴重地影響著台灣物種多樣性的維持及穩定。</p>
+                </div>
+            </div>
+        </div>
+        <div id="left2"class="container left">
+            <div>
+                <div class="content">
+                    <h2>2000年 <span style="color: brown">沙氏變色蜥</span></h2>
+                    <p>沙氏變色蜥常夾帶疾病或寄生重給原生物種，加上牠們食性廣泛，舉凡蝸牛、蛞蝓、蜘蛛、螞蟻等無脊椎動物，或是體型較小的青蛙或小型蜥蝪等兩棲爬蟲類，都可能成為牠的盤中飧。沙氏變色蜥族群太過龐大，影響台灣的農業生態或森林環境。</p>
+                </div>
+            </div>
+        </div>
+        <div id="right2"class="container right">
+            <div>
+                <div class="content">
+                    <h2>2007年 <span style="color: brown">紅火蟻</span></h2>
+                    <p>雜食性的入侵紅火蟻除了對生態環境中土棲性動物造成傷害，破壞土壤微棲地外，在危害嚴重的地區往往造成土壤中的蚯蚓被捕食殆盡；入侵紅火蟻也會取食農作物的種子、果實、幼芽、嫩莖與根系，影響農作物的成長與收成造成經濟上極大的損失。人被火蟻咬傷後，會因個人體質不同產不同程度過敏反應，嚴重者可能會造成休克。</p>
+                </div>
+            </div>
+        </div>
+        <div id="left3"class="container left">
+            <div>
+                <div class="content">
+                    <h2>2015年 <span style="color: brown">黃瘋蟻</span></h2>
+                    <p>因為黃瘋蟻的大舉入侵，墾丁國家公園的陸蟹數量驟減。林宗岐說，黃瘋蟻又稱長腳捷蟻，來自亞非地區，適應力、侵略性強，屬於世界百大入侵種之一。林宗岐團隊在墾丁一帶的調查發現，黃瘋蟻的入侵與人為破壞土地有關，黃瘋蟻普遍分布在港口、 漁舍、房屋附近等。</p>
+                </div>
+            </div>
+        </div>
+        <div id="right3"class="container right">
+            <div>
+                <div class="content">
+                    <h2>2016年 <span style="color: brown">埃及聖䴉</span></h2>
+                    <p>外來種埃及聖䴉以少量的基因庫在台灣繁衍後代，然而，窄化的基因庫若和本土種雜交，會造成本土基因庫的流失，使得台灣本地的生物多樣性降低，當環境變動增加，或災難性變動發生時，將造成嚴重後果。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+ $(window).scroll(function(){ $("#left1").each(function(){ var winTop = $(window).scrollTop(); var winheight = $(window).height(); var pos = $(this).offset().top; if (pos<winTop+winheight*0.7){ $(this).addClass( "animated fadeInLeft slide"); } if(winTop==0 ){ $(this).removeClass( "animated fadeInLeft slide"); } }); }); 
+
+        $(window).scroll(function(){
+            $("#right1").each(function(){
+                var winTop = $(window).scrollTop();
+                var winheight = $(window).height();
+                var pos = $(this).offset().top;
+                if (pos < winTop + winheight * 0.9){
+                    $(this).addClass("animated fadeInRight slide");
+                }
+                if (winTop == 0){
+                    $(this).removeClass("animated fadeInRight slide");
+                }
+                });
+            });
+        
+        $(window).scroll(function(){
+            $("#left2").each(function(){
+                var winTop = $(window).scrollTop();
+                var winheight = $(window).height();
+                var pos = $(this).offset().top;
+                if (pos < winTop + winheight * 0.7){
+                    $(this).addClass("animated fadeInLeft slide");
+                }
+                if (winTop == 0){
+                    $(this).removeClass("animated fadeInLeft slide");
+                }
+                });
+            });
+        
+        $(window).scroll(function(){
+            $("#right2").each(function(){
+                var winTop = $(window).scrollTop();
+                var winheight = $(window).height();
+                var pos = $(this).offset().top;
+                if (pos < winTop + winheight * 0.9){
+                    $(this).addClass("animated fadeInRight slide");
+                }
+                if (winTop == 0){
+                    $(this).removeClass("animated fadeInRight slide");
+                }
+                });
+            });
+        
+        $(window).scroll(function(){
+            $("#left3").each(function(){
+                var winTop = $(window).scrollTop();
+                var winheight = $(window).height();
+                var pos = $(this).offset().top;
+                if (pos < winTop + winheight * 0.7){
+                    $(this).addClass("animated fadeInLeft slide");
+                }
+                if (winTop == 0){
+                    $(this).removeClass("animated fadeInLeft slide");
+                }
+                });
+            });
+        
+        
+        
+        $(window).scroll(function(){
+            $("#right3").each(function(){
+                var winTop = $(window).scrollTop();
+                var winheight = $(window).height();
+                var pos = $(this).offset().top;
+                if (pos < winTop + winheight * 0.9){
+                    $(this).addClass("animated fadeInRight slide");
+                }
+                if (winTop == 0){
+                    $(this).removeClass("animated fadeInRight slide");
+                }
+                });
+            });
+        
+    </script>>
+     
+   
+   <div class="container-fluid" style="background-color: rgba(177,180,121,1); ">
+       <div class="row" >
+           <div id="leftp" class="col-md-6" align="center">
+           <img src="asset/%E5%9C%96%E7%89%871_resized.jpg">
+               <br>
+               <br>
+               <br>
+               <img src="asset/%E5%9C%96%E7%89%872_resized.jpg">
+               <br>
+               <br>
+               <br>
+               <img src="asset/%E5%9C%96%E7%89%873_resized.jpg">
+               <br>
+               <br>
+               <br>
+               <img src="asset/97-63_resized.jpg">
+               <br>
+               <br>
+               <br>
+               <br>
+               <img src="asset/zi_liao_hua_mian_lin_you_wei_she__resized.jpg">
+           </div>
+           <div id="rightp" class="col-md-6">
+               <h1>綠水龍</h1>
+               <h4>成蜥體型大，食量大且食性複雜，昆蟲、樹蛙甚至是蛇都可以是牠的食物。綠水龍甚至掠食原為競爭關係的台灣攀木蜥蜴，接掌了原生種的地盤。</h4>
+               <br>
+                <br>
+                <br>
+                <br>
+               <h1>埃及聖䴉</h1>
+               <h4>台灣進口埃及聖䴉作為園區內觀賞鳥，意外逸出後，適應台灣棲地環境，以少量的基因庫繁衍後代。</h4>
+               <br>
+               <br>
+               <br>
+                <br>
+                <br>
+               <h1>黃瘋蟻</h1>
+               <h4>黃瘋蟻以蟻酸攻擊陸蟹，導致陸蟹失明，使陸蟹因日曬而橫死街頭，最後成為黃瘋蟻的盤中飧，造成墾丁陸蟹的生存危機。</h4>
+               <br>
+                <br>
+                <br>
+                <br>
+                <br>
+               <h1>荔枝椿象</h1>
+               <h4>農試所黃毓斌博士指出，擴散後主要影響人類安危。荔枝椿象成蟲噴出的毒液會造成皮膚灼傷，嚴重者可能引發過敏反應或急性氣喘。</h4>
+               <br>
+               <br>
+               <br>
+                <br>
+                <br>
+                <br>
+               <h1>綠鬣蜥</h1>
+               <h4>綠鬣蜥除了巨大體型嚇到民眾外，綠鬣蜥的習性會在河堤挖洞，造成破壞，加上草食性的綠鬣蜥會吃掉農作物，更造成農民困擾。</h4>
+           </div>
+       </div>    
+        
+    </div>
+
+    <div class="container-fluid" style="background-color: rgba(241,148,131,1)">
+        <h3 style="color: rgba(94,61,80,1)">©Ariel Wen 2018</h3>
+    </div>
+
+  
+<!--
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            var doch = $(document).height();
+            var winh = $(window).height();
+            console.log("doch/winh: " + doch + "/" + winh);
+            var nimgs = 4;
+            var scrollheight = (doch - winh) / nimgs;
+            var arr = [0];
+            var srcs = [];
+            for (var i = 0; i < nimgs; i++) {
+                arr.push((i + 1) * scrollheight);
+                srcs.push("assets/map" + (i + 1) + ".jpg");
+            }
+            console.log(arr);
+
+            $(window).scroll(function() {
+                var scroll_position = $(document).scrollTop();
+                for (i = 0; i < arr.length - 1; i++) {
+                    if (arr[i] < scroll_position && arr[i + 1] > scroll_position) {
+                        console.log(srcs[i]);
+                        $('#right').attr("src", srcs[i]);
+                        $('#right').animate({src:srcs[i]}, 300);
+                    }
+                }
+
+            });
+        });
+    </script>
+-->
+    
+</body>
+
+
+
+
+</html>
